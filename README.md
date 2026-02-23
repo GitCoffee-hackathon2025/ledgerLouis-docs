@@ -19,6 +19,12 @@ Links do projeto:
 -   Backend: [Repositório](github.com/marcoandre/pi-backend) e [Publicação](https://pi-backend.herokuapp.com/)
 -   Frontend: [Repositório](github.com/marcoandre/pi-frontend) e [Publicação](https://pi-frontend.herokuapp.com/)
 
+---
+
+O cliente Anderson C. C. é um pedreiro e dono de uma pequena construtora civil. Sendo responsável pelo controle das entradas e saídas financeiras, anotando tudo em sua agenda. Com o passar do tempo, é necessário múltiplos cadernos, dificultando a organização das informações, identificação de valores pendentes, classificação dos gastos, como compras de materiais não repassadas ao cliente. Não possibilitando a ele uma visão clara sobre onde o dinheiro está alocado e prever a situação financeira para os próximos meses. Surgindo a necessidade de um sistema que permita registrar, organizar e projetar o fluxo financeiro da empresa de forma limpa e estruturada.
+
+---
+
 **Como usar esse modelo para o Projeto Integrador**
 
 *(Essa parte pode ser apagada depois.)*

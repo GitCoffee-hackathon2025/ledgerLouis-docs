@@ -1,10 +1,13 @@
-# Projeto Integrador - Modelo
-*LegderLouis*
+# LegderLouis - Projeto Integrador
 
-Um modelo para o desenvolvimento do Projeto Integrador do Curso de Técnico em Desenvolvimento de Sistemas para a Internet Integrado ao Ensino Médio do IFC - Campus Araquari.
-*(Coloque aqui uma breve descrição do seu projeto.)*
+<!--Um modelo para o desenvolvimento do Projeto Integrador do Curso de Técnico em Desenvolvimento de Sistemas para a Internet Integrado ao Ensino Médio do IFC - Campus Araquari.
+*(Coloque aqui uma breve descrição do seu projeto.)* -->
 
-**IMPORTANTE**: [**Cadastre seu projeto nesta planilha**](https://docs.google.com/spreadsheets/d/1bSb1-S9qOf46fNH8quyoFpcjcTuBMj_EdSPchOuFULY/edit?usp=sharing).
+Projeto Integrador do Curso de Técnico em Informática para Internet integrado ao Ensino Médio do Instituto Federal Catarinence - campus Araquari.
+
+Um sistema digital de controle de fluxo de caixa para registrar e acompanhar as movimentações financeiras de uma empresa. A ferramenta permiti o registro das entradas e saídas de dinheiro, classificando cada movimentação e vinculando-a a diferentes contas financeiras, como contas bancárias ou dinheiro vivo. Além disso, o sistema permiti o registro de valores previstos para datas futuras, possibilitando gerar projeções do fluxo de caixa e oferecendo uma visão mais clara da situação financeira atual e futura da empresa.
+
+<!-- **IMPORTANTE**: [**Cadastre seu projeto nesta planilha**](https://docs.google.com/spreadsheets/d/1bSb1-S9qOf46fNH8quyoFpcjcTuBMj_EdSPchOuFULY/edit?usp=sharing). -->
 
 Professor: [Marco André Mendes](github.com/marcoandre)
 
@@ -14,17 +17,52 @@ Equipe:
 - [William Chormiak](https://github.com/Chormiak)
 
 Links do projeto:
-(*Coloque aqui os links para a documentação do projeto e os repositórios e plubicação do backend e frontend.*)
--   [Documentação (esse documento)](github.com/marcoandre/pi-modelo)
--   Backend: [Repositório](github.com/marcoandre/pi-backend) e [Publicação](https://pi-backend.herokuapp.com/)
--   Frontend: [Repositório](github.com/marcoandre/pi-frontend) e [Publicação](https://pi-frontend.herokuapp.com/)
+<!-- (*Coloque aqui os links para a documentação do projeto e os repositórios e plubicação do backend e frontend.*) -->
+-   [Documentação (esse documento)](https://github.com/GitCoffee-hackathon2025/ledgerLouis-docs)
+-   Backend: [Repositório](https://github.com/GitCoffee-hackathon2025/ledgerLouis-backend) <!-- e [Publicação](https://pi-backend.herokuapp.com/) -->
+-   Frontend: [Repositório](https://github.com/GitCoffee-hackathon2025/ledgerLouis-frontend) <!-- e [Publicação](https://pi-frontend.herokuapp.com/) -->
 
 ---
 
-O cliente Anderson C. C. é um pedreiro e dono de uma pequena construtora civil. Sendo responsável pelo controle das entradas e saídas financeiras, anotando tudo em sua agenda. Com o passar do tempo, é necessário múltiplos cadernos, dificultando a organização das informações, identificação de valores pendentes, classificação dos gastos, como compras de materiais não repassadas ao cliente. Não possibilitando a ele uma visão clara sobre onde o dinheiro está alocado e prever a situação financeira para os próximos meses. Surgindo a necessidade de um sistema que permita registrar, organizar e projetar o fluxo financeiro da empresa de forma limpa e estruturada.
+# Introdução
+
+O cliente Anderson C. é um pedreiro e dono de uma pequena construtora civil, atuando no ramo há mais de 20 anos. Ele trabalha tanto sozinho quanto com uma equipe de acordo com a quantidade de obras acontecendo simultâneamente e do tamanho da obra que pode ir de pequenas reformas até construções. Enquanto a maioria dos clientes são de longa data e que solicitam serviços com frequência.
+
+# Situação-Problema
+
+Atualmente, o controle financeiro é exercido manualmente com agendas físicas. Nesses cadernos é registrado a entrada dos pagamentos vindos das obras, saídas relacionadas a compra de materiais, pagamento de funcionários, combustível, alimentação e outros custos da empresa. A cada ano é utilizado uma nova agenda diferente, mas obras que se estendem por longos períodos acabam ficando na mesma agenda, dificultando a organização dos registros.
+
+Os pagamentos dos clientes podem ser realizados no mesmo dia que o serviço prestado ou em uma data combinada, sendo feito por meio de dinheiro, PIX ou transferência bancária. Como os registros são anotados manualmente, acompanhar os pagamentos exige a consulta constante do dono.
+
+Sobre o controle de gastos com materiais. Muitas vezes o próprio cliente é quem compra os itens necessários para a obra, porém é comum que o pedreiro realize a compra e futuramente repasse o valor ao cliente. Apesar de guardar as notas fiscais dessas compras, essas despesas não são registradas corretamente, podendo causar confusão sobre se já foram cobradas.
+
+Também o senhor Anderson utiliza mais de uma conta bancária para movimentar o dinheiro do negócio e como não existe um controle centralizado dessas movimentações, em algumas vezes ele já teve dificuldades em identificar em qual conta estava o dinheiro.
+
+Os funcionários recebem o salário com base nas horas trabalhadas. E podem solicitar adiantamentos (vale) ao longo do mês, que é descontado do pagamento. Já o cálculo final e registro do tempo são feitos em uma planilha separada.
+
+Embora Anderson tenha uma noção de quanto irá receber nos próximos meses, baseada em conversas e planejamento feito com os clientes, ele não possui uma ferramenta que permita visualizar de forma organizada as suas receitas futuras, despesas previstas e saldo disponível ao longo do tempo.
+
+# Conclusão
+
+Por causa do uso de agendas físicas e registros dispersos, o cliente Anderson enfrenta dificuldades para organizar suas movimentações financeiras, lembrar valores pendentes, acompanhar seus gastos e visualizar a real situação financeira de sua empresa. É necessário um sistema de controle de fluxo de caixa que permita registrar entradas e saídas de dinheiro de forma organizada, possibilitando separar as movimentações por categorias, acompanhar o dinheiro e visualizar projeções financeiras para os próximos meses, ajudando na tomada de decisão.
 
 ---
 
+# Proposta
+
+A solução propõe o desenvolvimento de um sistema de controle de fluxo de caixa que permita registrar, organizar e acompanhar as movimentações financeiras da empresa de forma digital. Tendo como foco ser uma ferramenta que permita ver com clareza as entradas e saídas de dinheiro, que facilitará a organização financeira do negócio e substituindo as agendas antes usadas.
+
+Esse sistema deve permitir o registro de todas as movimentações financeiras da empresa, separando os tipos de recebimentos e despesas por meio da classificação e descrição de cada movimentação, permitindo identificar com mais facilidade a origem e o destino desse valor.
+
+O sistema também deverá permitir a administração de diferentes contas financeiras usadas pela empresa, como contas bancárias e dinheiro vivo. Assim, cada movimentação estará atrelada a uma conta, deixando o usuário acompanhar com mais precisão onde o dinheiro está.
+
+O sistema deve permitir o registro de valores previstos para datas futuras, como pagamentos ou despesas que ainda serão realizadas. Com essas informações, o sistema deve apresentar uma projeção do fluxo de caixa, permitindo ao usuário visualizar não só o saldo atual da empresa, mas também junto com uma estimativa do saldo disponível futuramente.
+
+Com essas funcionalidades, o sistema permitirá centralizar as informações financeiras da empresa, facilitar o acompanhamento das movimentações, melhorar a organização dos registros e oferecer uma visão mais clara da situação financeira atual e futura do negócio.
+
+---
+
+<!--
 **Como usar esse modelo para o Projeto Integrador**
 
 *(Essa parte pode ser apagada depois.)*
@@ -106,6 +144,8 @@ Após entender o problema, proponha uma solução que será útil nos aspectos d
 
 Tenha em mente que essa é uma etapa relativamente breve. Não é necessário um texto gigantesco, apenas dar uma noção do funcionamento do sistema. Mais adiante
 precisaremos ser bem detalhistas, todavia agora a intenção é apenas fazer algo que permita ao cliente nos dizer se estamos no caminho certo.
+
+-->
 
 # 4. Modelagem de Dados
 

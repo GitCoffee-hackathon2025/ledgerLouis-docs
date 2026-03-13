@@ -13,11 +13,13 @@ Professor: [Marco André Mendes](github.com/marcoandre)
 
 Equipe:
 - [Erick Henrique Pedrini](https://github.com/Erick-Henrique-Pedrini)
+- [Gabriel Antonio Pinto](https://github.com/biel0165)
 - [Murilo Jamoski Luciani](https://github.com/Murilojamoski)
 - [William Chormiak](https://github.com/Chormiak)
 
 Links do projeto:
 <!-- (*Coloque aqui os links para a documentação do projeto e os repositórios e plubicação do backend e frontend.*) -->
+-   Deploy: [Endereço](https://ledgerlouis.vercel.app/)
 -   [Documentação (esse documento)](https://github.com/GitCoffee-hackathon2025/ledgerLouis-docs)
 -   Backend: [Repositório](https://github.com/GitCoffee-hackathon2025/ledgerLouis-backend) <!-- e [Publicação](https://pi-backend.herokuapp.com/) -->
 -   Frontend: [Repositório](https://github.com/GitCoffee-hackathon2025/ledgerLouis-frontend) <!-- e [Publicação](https://pi-frontend.herokuapp.com/) -->

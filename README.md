@@ -151,13 +151,151 @@ precisaremos ser bem detalhistas, todavia agora a intenção é apenas fazer alg
 
 # 4. Modelagem de Dados
 
-(*Nessa parte a equipe deve descrever a modelagem de dados que será implementada no sistema. O texto abaixo descreve o que essa etapa deve conter e pode ser apagado depois.*)
+<!-- (*Nessa parte a equipe deve descrever a modelagem de dados que será implementada no sistema. O texto abaixo descreve o que essa etapa deve conter e pode ser apagado depois.*)
 
 Defina as entidades e relacionamentos que farão parte do sistema. Desenhe o diagrama de entidade-relacionamento (DER) e descreva as entidades e relacionamentos que farão parte do sistema.
+-->
 
+## Modelagem de Dados
 
+A modelagem foi criada para organizar as informações financeiras do negócio, trocando o controle manual por uma estrutura centralizada e mais clara.
+
+### Entidades
+
+**Companies**
+Representa a empresa que utiliza o sistema, sendo o pilar onde todos os dados ficam vinculados.
+
+**Users**
+Representa os usuários que acessam o sistema, podendo estar ligados a uma ou mais empresas.
+
+**Company_Users**
+Relaciona usuários e empresas, além de definir o nível de acesso de cada usuário.
+
+**Projects**
+Representa as obras ou serviços realizados, permitindo organizar receitas e despesas por trabalho.
+
+**Accounts**
+Representa tanto as contas financeiras (banco, caixa) quanto as categorias de receitas e despesas.
+
+---
+
+### Entidades de Operação Financeira
+
+**Transactions**
+Registra movimentações financeiras (entrada, saída ou transferência), podendo estar associadas a projetos.
+
+**Installments**
+Representa valores a pagar ou receber em datas específicas, permitindo controlar parcelas e status de pagamento.
+
+**Ledger_Entries**
+Registra as movimentações reais de dinheiro, sendo a base para o cálculo dos saldos.
+
+---
+
+### Entidades de Automação
+
+**Recurring_Transactions**
+Permite cadastrar movimentações repetitivas, como despesas mensais, que podem ser geradas automaticamente.
+
+---
+
+### Entidades de Controle de Acesso
+
+**Invites**
+Permite convidar usuários para a empresa com permissões definidas.
+
+**Sessions**
+Controla os acessos dos usuários ao sistema.
+
+**Refresh_Tokens**
+Gerencia a autenticação contínua dos usuários com mais segurança.
+
+---
+
+### Relacionamentos
+
+* Uma empresa possui vários usuários (company_users) e projetos (projects).
+* Um usuário pode participar de várias empresas.
+* Projetos pertencem a uma empresa e podem ter várias transações.
+* Transações pertencem a uma empresa e podem ter parcelas (installments).
+* Parcelas geram registros no ledger_entries.
+* Os registros do ledger_entries afetam as contas (accounts).
+* Transações recorrentes geram novos registros ao longo do tempo.
+* Sessões pertencem a usuários e possuem refresh_tokens.
+* Convites permitem adicionar novos usuários à empresa.
+
+---
+
+### Considerações
+
+Essa modelagem deve como foco separar o que é esperado e o que aconteceu. Transações e parcelas representam planejamento, enquanto o ledger registra o que realmente ocorreu. Permitindo acompanhar o saldo atual e também prever o fluxo de caixa futuro.
+
+---
 
 # 4. Regras de negócio
+
+**RN01 – Criação de Empresa:**
+Para utilizar o sistema, é necessário cadastrar uma empresa. No momento da criação, deve ser vinculado automaticamente um usuário com permissão de proprietário (owner).
+
+**RN02 – Vínculo de Usuários à Empresa:**
+Um usuário só pode acessar os dados de uma empresa se estiver vinculado a ela graças a um convite enviado anteriormente e aceito.
+
+**RN03 – Controle de Permissões:**
+Usuários com perfil “viewer” podem apenas visualizar os dados, enquanto usuários com perfil “admin” ou “owner” podem registrar e alterar informações.
+
+**RN04 – Cadastro de Contas:**
+Toda movimentação financeira deve estar associada a uma conta cadastrada, que pode representar tanto uma conta real (banco ou caixa) quanto uma categoria de receita ou despesa.
+
+**RN05 – Registro de Transações:**
+Toda movimentação financeira deve ser registrada como uma transação, contendo tipo (entrada, saída ou transferência) e podendo estar associada a um projeto.
+
+**RN06 – Registro de Parcelas:**
+Uma transação pode ser registrada como pagamento à vista ou parcelado. Quando parcelada, cada parcela deve possuir valor, data de vencimento e status de pagamento.
+
+**RN07 – Controle de Status de Pagamento:**
+Uma parcela só pode ser marcada como “paga” se possuir uma data de pagamento registrada.
+
+**RN08 – Registro de Movimentação Real:**
+O saldo das contas só deve ser alterado por meio de lançamentos no ledger, representando a movimentação real do dinheiro.
+
+**RN09 – Geração de Lançamentos Financeiros:**
+Ao registrar o pagamento de uma parcela, o sistema deve gerar os lançamentos no ledger correspondentes à operação.
+
+**RN10 – Transferência entre Contas:**
+Uma transferência deve gerar dois lançamentos no ledger: um de saída na conta de origem e outro de entrada na conta que recebeu.
+
+**RN11 – Controle de Reembolsos:**
+Transações marcadas como reembolsáveis devem permitir o vínculo com outra transação que represente o retorno do valor.
+
+**RN12 – Associação com Projetos:**
+Transações e parcelas podem ser associadas a projetos, permitindo acompanhar por obra ou serviço.
+
+**RN13 – Controle de Valores Futuros:**
+Parcelas com data futura devem ser consideradas como valores previstos e não devem afetar o saldo atual até que sejam marcadas como pagas.
+
+**RN14 – Geração de Transações Recorrentes:**
+Movimentações recorrentes devem gerar automaticamente novas parcelas com base na frequência definida, como mensal ou semanal.
+
+**RN15 – Controle de Convites:**
+Um convite enviado para um usuário deve possuir prazo de expiração e só poderá ser utilizado uma vez para vincular o usuário à empresa.
+
+**RN16 – Controle de Sessões:**
+Cada acesso ao sistema deve gerar uma sessão vinculada ao usuário, podendo ser encerrada manualmente ou expirada automaticamente.
+
+**RN17 – Rotação de Tokens:**
+A cada renovação de autenticação, um novo token deve ser gerado, invalidando o anterior, garantindo maior segurança no acesso.
+
+**RN18 – Integridade dos Registros:**
+Nenhuma movimentação financeira já registrada no ledger pode ser alterada diretamente. Caso necessário, deve ser criado um novo registro que compense o valor anterior.
+
+**RN19 – Consulta de Fluxo de Caixa:**
+O sistema deve permitir a visualização do saldo atual com base nos lançamentos realizados e também a projeção futura com base nas parcelas pendentes.
+
+**RN20 – Organização por Empresa:**
+Todos os dados do sistema devem estar obrigatoriamente vinculados a uma empresa, garantindo que não haja compartilhamento indevido de informações entre diferentes organizações.
+
+
+<!--
 (*Nessa parte a equipe deve descrever as regras de negócio que serão implementadas no sistema. O texto abaixo descreve o que essa etapa deve conter e pode ser apagado depois.*)
 
 As **Regras de negócio** são orientações e restrições que ajudam a regular as operações de uma empresa. **Regras** foram criadas para **colaborar com o funcionamento**, seja da sociedade, de uma escola, de um jogo, etc. Não seria diferente nas organizações. Vamos abordar melhor sobre esse assunto. Entender o que são as regras de negócio, sua importância, como são aplicadas e
@@ -224,8 +362,127 @@ orçamento registradas, a atendente deve imprimir o orçamento e
 repassar ao cliente para aprovação, e caso o cliente aprovar, a atendente deve solicitar a sua assinatura para aprovar a execução do serviço.
 - **RN08 – Abertura de OS:** Com o atendimento aprovado pelo cliente, a atendente deverá inserir os dados do cliente e do orçamento em um novo documento, para registros internos, realizando a abertura da OS.
 - **RN09 – Relatório de Fluxo de Caixa:** O relatório de fluxo de caixa será permitido somente para o administrador.
+-->
 
 # 5. Requisitos funcionais
+
+## 5. Requisitos Funcionais
+
+**R.F. 01 - Cadastro de Empresa:**
+O sistema deve permitir cadastrar uma nova empresa quando o usuário começar usar a aplicação, centralizando os dados.
+
+* **Dados necessários:** nome, cnpj.
+* **Usuários:** usuário inicial.
+
+**R.F. 02 - Cadastro de Usuário:**
+O sistema deve permitir cadastrar usuários quando um convite for aceito, vinculando-os automaticamente à empresa.
+
+* **Dados necessários:** nome, email, senha.
+* **Usuários:** convidados.
+
+**R.F. 03 - Cadastro de Contas:**
+O sistema deve permitir cadastrar contas quando o usuário precisar registrar movimentações financeiras.
+
+* **Dados necessários:** nome, tipo (asset, expense, revenue).
+* **Usuários:** admin, owner.
+
+**R.F. 04 - Cadastro de Projetos:**
+O sistema deve permitir cadastrar projetos quando o usuário desejar organizar receitas e despesas por obra ou serviço.
+
+* **Dados necessários:** nome, descrição, datas.
+* **Usuários:** admin, owner.
+
+**R.F. 05 - Registro de Transações:**
+O sistema deve permitir registrar transações quando ocorrer uma movimentação financeira ou pela necessidade de registro futuro.
+
+* **Dados necessários:** tipo, descrição, projeto (opcional).
+* **Usuários:** admin, owner.
+
+**R.F. 06 - Registro de Parcelas:**
+O sistema deve permitir cadastrar parcelas quando uma transação for definida como pagamento futuro ou parcelado.
+
+* **Dados necessários:** valor, data de vencimento, status.
+* **Usuários:** admin, owner.
+
+**R.F. 07 - Registro de Transações Recorrentes:**
+O sistema deve permitir cadastrar transações recorrentes quando houver movimentações que ocorrem de tempos e tempos.
+
+* **Dados necessários:** tipo, valor, frequência, data inicial.
+* **Usuários:** admin, owner.
+
+**R.F. 08 - Envio de Convites:**
+O sistema deve permitir enviar convites quando o proprietário desejar adicionar novos usuários à empresa.
+
+* **Dados necessários:** email, permissão.
+* **Usuários:** owner.
+
+**R.F. 09 - Autenticação de Usuário:**
+O sistema deve autenticar o usuário quando forem informados email e senha válidos, permitindo acesso ao sistema.
+
+* **Dados necessários:** email, senha.
+* **Usuários:** todos.
+
+**R.F. 10 - Controle de Permissões:**
+O sistema deve validar o nível de acesso do usuário quando ele tentar executar alguma ação, restringindo operações conforme seu perfil.
+
+* **Dados necessários:** role do usuário.
+* **Usuários:** todos.
+
+**R.F. 11 - Geração de Lançamentos Financeiros:**
+O sistema deve gerar registros no ledger quando uma parcela for marcada como paga, atualizando o saldo das contas.
+
+* **Dados necessários:** valor, conta, transação.
+* **Usuários:** sistema.
+
+**R.F. 12 - Processamento de Transferências:**
+O sistema deve registrar dois lançamentos financeiros quando uma transferência for realizada, sendo um de saída e outro de entrada.
+
+* **Dados necessários:** conta origem, conta destino, valor.
+* **Usuários:** admin, owner.
+
+**R.F. 13 - Processamento de Transações Recorrentes:**
+O sistema deve gerar novas parcelas automaticamente quando atingir a data definida em uma recorrência.
+
+* **Dados necessários:** frequência, próxima execução.
+* **Usuários:** sistema.
+
+**R.F. 14 - Atualização de Status de Parcelas:**
+O sistema deve atualizar o status da parcela quando um pagamento for registrado.
+
+* **Dados necessários:** status, data de pagamento.
+* **Usuários:** admin, owner.
+
+**R.F. 15 - Visualização de Saldo Atual:**
+O sistema deve exibir o saldo atual quando o usuário acessar o painel financeiro, com base nos lançamentos realizados.
+
+* **Dados necessários:** valores do ledger, contas.
+* **Usuários:** todos.
+
+**R.F. 16 - Visualização de Fluxo de Caixa:**
+O sistema deve apresentar a projeção de fluxo de caixa quando houver parcelas futuras cadastradas.
+
+* **Dados necessários:** parcelas, datas, valores.
+* **Usuários:** todos.
+
+**R.F. 17 - Consulta de Transações:**
+O sistema deve permitir visualizar transações quando o usuário acessar o histórico financeiro.
+
+* **Dados necessários:** transações, filtros.
+* **Usuários:** todos.
+
+**R.F. 18 - Consulta por Projeto:**
+O sistema deve permitir visualizar receitas e despesas por projeto quando o usuário selecionar um projeto específico.
+
+* **Dados necessários:** projetos, transações.
+* **Usuários:** todos.
+
+**R.F. 19 - Consulta de Parcelas:**
+O sistema deve exibir parcelas quando o usuário acessar os pagamentos pendentes ou realizados.
+
+* **Dados necessários:** parcelas, status.
+* **Usuários:** todos.
+
+<!--
 (*Nessa parte a equipe deve descrever os requisitos funcionais que serão implementados no sistema. O texto abaixo descreve o que essa etapa deve conter e pode ser apagado depois.*)
 
 **5.1 O que são requisitos funcionais?**
@@ -372,8 +629,67 @@ negócio. Lembre-se que, diferentemente das entradas e processos, aqui os dados 
   - **Dados necessários:** dado 1, dado 2, dado 3.
   - **Usuários:** todos os níveis de usuário.
 
+-->
+
 # 6. Requisitos não funcionais
 
+Beleza. Aqui você precisa tomar cuidado com dois erros comuns:
+
+1. Fazer R.N.F genérico (“o sistema deve ser seguro”) → isso não vale nada
+2. Misturar tecnologia com qualidade → são coisas diferentes
+
+Vou estruturar certo, direto e no mesmo tom que você pediu.
+
+---
+
+# **6. Requisitos não funcionais**
+
+* **R.N.F. 01 - Arquitetura do sistema:**
+  O sistema deve ser estruturado com a separação de frontend e backend, utilizando API REST para comunicação.
+
+* **R.N.F. 02 - Tecnologia de backend:**
+  O sistema deve ser desenvolvido em TypeScript utilizando o framework Fastify, com validação de dados por TypeBox e AJV.
+
+* **R.N.F. 03 - Tecnologia de frontend:**
+  O sistema deve ser desenvolvido em TypeScript utilizando Vue.js, com gerenciamento de estado via Pinia e requisições HTTP via Axios.
+
+* **R.N.F. 04 - Banco de dados:**
+  O sistema deve utilizar banco de dados MySQL, com acesso gerenciado pelo ORM Drizzle.
+
+* **R.N.F. 05 - Gerenciamento de ambiente:**
+  O sistema deve utilizar variáveis de ambiente para definir configurações sensíveis e comportamento (desenvolvimento, teste e produção).
+
+* **R.N.F. 06 - Autenticação:**
+  O sistema deve autenticar usuários por meio de tokens (access e refresh), garantindo controle de sessões ativas.
+
+* **R.N.F. 07 - Armazenamento seguro:**
+  O sistema deve armazenar senhas de usuários utilizando hash criptográfico.
+
+* **R.N.F. 08 - Controle de acesso:**
+  O sistema deve restringir o acesso às funcionalidades com base no papel do usuário (owner, admin, viewer).
+
+* **R.N.F. 09 - Tempo de resposta:**
+  O sistema deve responder às requisições do usuário em tempo adequado para uso contínuo, evitando atrasos notáveis nas operações.
+
+* **R.N.F. 10 - Disponibilidade:**
+  O sistema deve estar disponível para uso, exceto em casos de falhas de infraestrutura ou manutenção.
+
+* **R.N.F. 11 - Integridade dos dados:**
+  O sistema deve garantir confiabilidade dos dados financeiros, evitando registros incompletos ou inconsistentes.
+
+* **R.N.F. 12 - Persistência de dados:**
+  O sistema deve garantir que os dados registrados não sejam perdidos após confirmação das operações.
+
+* **R.N.F. 13 - Interface:**
+  O sistema deve apresentar uma interface clara e organizada, permitindo que o usuário registre e consulte informações financeiras sem dificuldade.
+
+* **R.N.F. 14 - Organização do código:**
+  O sistema deve ser estruturado de forma modular, facilitando manutenção e evolução.
+
+* **R.N.F. 15 - Validação de dados:**
+  O sistema deve validar dados de entrada tanto no frontend quanto no backend, garantindo confiabilidade nas operações.
+  
+<!--
 Requisitos não funcionais (**RNFs**) são as restrições impostas a um sistema que definem seus atributos de qualidade.
 
 Eles geralmente são indicados por adjetivos como **segurança**, **desempenho** e **escalabilidade**.
@@ -468,6 +784,8 @@ Requisitos não funcionais são essenciais para qualquer sistema. Eles ajudam a 
 
 É importante considerar cuidadosamente todos os requisitos não funcionais antes de projetar e desenvolver um sistema.
 Eles ajudam a garantir que o sistema atenda às necessidades do usuário e seja capaz de funcionar como pretendido.
+
+-->
 
 # 7. Diagrama de Caso de Uso
 

@@ -160,6 +160,8 @@ Defina as entidades e relacionamentos que farão parte do sistema. Desenhe o dia
 
 A modelagem foi criada para organizar as informações financeiras do negócio, trocando o controle manual por uma estrutura centralizada e mais clara.
 
+![modelagem do banco de dados](./temp/sql.png)
+
 ### Entidades
 
 **Companies**

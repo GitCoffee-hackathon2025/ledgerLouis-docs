@@ -19,11 +19,9 @@ Equipe:
 
 Links do projeto:
 <!-- (*Coloque aqui os links para a documentação do projeto e os repositórios e plubicação do backend e frontend.*) -->
--   Vercel: [Deploy](https://ledgerlouis.vercel.app/)
 -   [Documentação (esse documento)](https://github.com/GitCoffee-hackathon2025/ledgerLouis-docs)
--   Backend: [Repositório](https://github.com/GitCoffee-hackathon2025/ledgerLouis-backend) <!-- e [Publicação](https://pi-backend.herokuapp.com/) -->
--   Frontend: [Repositório](https://github.com/GitCoffee-hackathon2025/ledgerLouis-frontend) <!-- e [Publicação](https://pi-frontend.herokuapp.com/) -->
--   Fabroku: [Deploy](https://back.class.fabricadesoftware.ifc.edu.br/)
+-   Frontend: [Repositório](https://github.com/GitCoffee-hackathon2025/ledgerLouis-frontend) -> [Deploy](https://ledgerlouis.vercel.app/)
+-   Backend: [Repositório](https://github.com/GitCoffee-hackathon2025/ledgerLouis-backend) -> [Deploy](https://back.class.fabricadesoftware.ifc.edu.br/)
 ---
 
 # Introdução
